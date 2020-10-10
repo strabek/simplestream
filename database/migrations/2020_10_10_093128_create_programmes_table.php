@@ -21,8 +21,8 @@ class CreateProgrammesTable extends Migration
             $table->string('name', 191);
             $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->timestamp('starts_at');
+            $table->timestamp('ends_at');
             $table->string('timezone')->index();
             $table->unsignedInteger('duration');
             $table->timestamp('created_at')->useCurrent();

@@ -9,41 +9,14 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
-class ChannelController extends Controller
+class ProgrammeController extends Controller
 {
     /**
-     * @return JsonResponse
-     */
-    protected function list(): JsonResponse
-    {
-        try {
-            $channels = ChannelRepository::getAll();
-        } catch (Exception $e) {
-            return new JsonResponse(
-                [
-                    'status' => 'fail',
-                    'message' => $e->getMessage()
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
-        return new JsonResponse(
-            [
-                'status' => 'success',
-                'data' => $channels
-            ],
-            Response::HTTP_OK
-        );
-    }
-
-    /**
      * @param string $channelUuid
-     * @param string $date
-     * @param string $timezone
+     * @param string $programmeUuid
      * @return JsonResponse
      */
-    protected function channelTimetable(string $channelUuid, string $date, string $timezone): JsonResponse
+    protected function programmeData(string $channelUuid, string $programmeUuid): JsonResponse
     {
         try {
             $channel = ChannelRepository::getByUuid($channelUuid);
@@ -68,7 +41,7 @@ class ChannelController extends Controller
         }
 
         try {
-            $programmes = ProgrammeRepository::getByChannelDateAndTimezone($channel, $date, $timezone);
+            $programme = ProgrammeRepository::getByUuid($programmeUuid);
         } catch (Exception $e) {
             return new JsonResponse(
                 [
@@ -79,10 +52,20 @@ class ChannelController extends Controller
             );
         }
 
+        if (!$programme) {
+            return new JsonResponse(
+                [
+                    'status' => 'fail',
+                    'message' => 'Programme ' . $programmeUuid . ' not found.'
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
         return new JsonResponse(
             [
                 'status' => 'success',
-                'data' => $programmes
+                'data' => $programme
             ],
             Response::HTTP_OK
         );

@@ -17,10 +17,21 @@ class ProgrammeRepository
      */
     public static function getByChannelDateAndTimezone(Channel $channel, string $date, string $timezone): ?Collection
     {
-        return Programme::select('uuid', 'name', 'start', 'end', 'duration')
+        return Programme::select('uuid', 'name', 'starts_at', 'ends_at', 'duration')
             ->where('channel_id', '=', $channel->id)
             ->whereDate('start', '=', Carbon::parse($date)->format('Y-m-d'))
             ->where('timezone', '=', str_replace('-', '/', $timezone))
             ->get();
+    }
+
+    /**
+     * @param $uuid
+     * @return Collection|null
+     */
+    public static function getByUuid($uuid): ?Programme
+    {
+        return Programme::select('uuid', 'name', 'description', 'thumbnail', 'starts_at', 'ends_at', )
+            ->where('uuid', '=', $uuid)
+            ->first();
     }
 }
