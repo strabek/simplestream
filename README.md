@@ -2,6 +2,15 @@ Project setup:
 1. Clone repository: https://github.com/strabek/simplestream
 2. Run composer install
 3. Set files/folders permissions if required
+4. .env file should be created automatically (post composer install script). You need to however set correct values:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
 API endpoints:
 1. /api/channels
