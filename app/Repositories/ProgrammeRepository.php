@@ -20,7 +20,7 @@ class ProgrammeRepository
         return Programme::select('uuid', 'name', 'starts_at', 'ends_at', 'duration')
             ->where('channel_id', '=', $channel->id)
             ->whereDate('starts_at', '=', Carbon::parse($date)->format('Y-m-d'))
-            ->where('timezone', '=', str_replace('-', '/', $timezone))
+            ->where('timezone', '=', self::convertTimezoneName($timezone))
             ->get();
     }
 
@@ -31,5 +31,14 @@ class ProgrammeRepository
     public static function getByUuid($uuid): ?Programme
     {
         return Programme::where('uuid', '=', $uuid)->first();
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public static function convertTimezoneName(string $name): string
+    {
+        return str_replace('-', '/', $name);
     }
 }

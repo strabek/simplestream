@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "c5edbfdc-717f-43b9-9fe0-82f26a23f9d0",
+		"name": "Simplestream",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://simplestream.local/api/channels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://simplestream.local/api/channels",
+					"protocol": "http",
+					"host": [
+						"simplestream",
+						"local"
+					],
+					"path": [
+						"api",
+						"channels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://simplestream.local/api/channels/f2588d8b-95e4-42b7-bc77-83344df0a20a/2020-01-01/timezone/Europe-London",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://simplestream.local/api/channels/0f468ddd-c5ed-4959-bc93-a34b156b245d/2020-01-01/timezone/Europe-London",
+					"protocol": "http",
+					"host": [
+						"simplestream",
+						"local"
+					],
+					"path": [
+						"api",
+						"channels",
+						"0f468ddd-c5ed-4959-bc93-a34b156b245d",
+						"2020-01-01",
+						"timezone",
+						"Europe-London"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://simplestream.local/api/channels/0f468ddd-c5ed-4959-bc93-a34b156b245d/programmes/1be143c2-4425-47a8-a401-f0e3d994e8c8",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://simplestream.local/api/channels/0f468ddd-c5ed-4959-bc93-a34b156b245d/programmes/1be143c2-4425-47a8-a401-f0e3d994e8c8",
+					"protocol": "http",
+					"host": [
+						"simplestream",
+						"local"
+					],
+					"path": [
+						"api",
+						"channels",
+						"0f468ddd-c5ed-4959-bc93-a34b156b245d",
+						"programmes",
+						"1be143c2-4425-47a8-a401-f0e3d994e8c8"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
