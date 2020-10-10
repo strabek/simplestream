@@ -19,7 +19,7 @@ class ProgrammeRepository
     {
         return Programme::select('uuid', 'name', 'starts_at', 'ends_at', 'duration')
             ->where('channel_id', '=', $channel->id)
-            ->whereDate('start', '=', Carbon::parse($date)->format('Y-m-d'))
+            ->whereDate('starts_at', '=', Carbon::parse($date)->format('Y-m-d'))
             ->where('timezone', '=', str_replace('-', '/', $timezone))
             ->get();
     }
@@ -30,8 +30,6 @@ class ProgrammeRepository
      */
     public static function getByUuid($uuid): ?Programme
     {
-        return Programme::select('uuid', 'name', 'description', 'thumbnail', 'starts_at', 'ends_at', )
-            ->where('uuid', '=', $uuid)
-            ->first();
+        return Programme::where('uuid', '=', $uuid)->first();
     }
 }

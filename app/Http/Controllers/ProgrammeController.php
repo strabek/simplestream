@@ -62,10 +62,21 @@ class ProgrammeController extends Controller
             );
         }
 
+        $data = [
+            'uuid' => $programme->uuid,
+            'name' => $programme->name,
+            'description' => $programme->description,
+            'thumbnail' => $programme->thumbnail,
+            'starts_at' => $programme->starts_at,
+            'ends_at' => $programme->ends_at,
+            'duration' => $programme->duration,
+            'channel' => $programme->channel
+        ];
+
         return new JsonResponse(
             [
                 'status' => 'success',
-                'data' => $programme
+                'data' => $data
             ],
             Response::HTTP_OK
         );
