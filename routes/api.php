@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/channels', 'ChannelController@list');
-Route::get('/channels/{channel}/{date}/timezone/{timezone}', 'ChannelController@channelTimetable');
-Route::get('/channels/{channel}/programmes/{programme-uuid}', 'ChannelController@programmeTimetable');
+Route::get('/channels/{channel-uuid}/{date}/timezone/{timezone}', 'ChannelController@channelTimetable');
+Route::get('/channels/{channel-uuid}/programmes/{programme-uuid}', 'ChannelController@programmeTimetable');

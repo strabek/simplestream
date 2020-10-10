@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Repositories\ChannelRepository;
+use App\Repositories\ProgrammeRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ChannelController extends Controller
@@ -20,7 +22,8 @@ class ChannelController extends Controller
         } catch (Exception $e) {
             return new JsonResponse(
                 [
-                    'status' => 'fail'
+                    'status' => 'fail',
+                    'message' => $e->getMessage()
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
@@ -35,12 +38,53 @@ class ChannelController extends Controller
         );
     }
 
-    protected function channelTimetable(): JsonResponse
+    /**
+     * @param Request $request
+     * @param string $channelUuid
+     * @param string $date
+     * @param string $timezone
+     * @return JsonResponse
+     */
+    protected function channelTimetable(Request $request, string $channelUuid, string $date, string $timezone): JsonResponse
     {
+        try {
+            $channel = ChannelRepository::getByUuid($channelUuid);
+        } catch (Exception $e) {
+            return new JsonResponse(
+                [
+                    'status' => 'fail',
+                    'message' => $e->getMessage()
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        if (!$channel) {
+            return new JsonResponse(
+                [
+                    'status' => 'fail',
+                    'message' => 'Channel ' . $channelUuid . ' not found.'
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        try {
+            $programmes = ProgrammeRepository::getByChannelDateAndTimezone($channel, $date, $timezone);
+        } catch (Exception $e) {
+            return new JsonResponse(
+                [
+                    'status' => 'fail',
+                    'message' => $e->getMessage()
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
         return new JsonResponse(
             [
                 'status' => 'success',
-                'data' => $data
+                'data' => $programmes
             ],
             Response::HTTP_OK
         );
