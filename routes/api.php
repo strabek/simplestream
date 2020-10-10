@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/channels', 'App\Http\Controllers\ChannelController@list');
+Route::get('/channels/{channel}/{date}/timezone/{timezone}', 'App\Http\Controllers\ChannelController@channelTimetable');
+Route::get('/channels/{channel}/programmes/{programme-uuid}', 'App\Http\Controllers\ChannelController@programmeTimetable');
