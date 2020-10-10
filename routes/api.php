@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/channels', 'App\Http\Controllers\ChannelController@list');
-Route::get('/channels/{channel}/{date}/timezone/{timezone}', 'App\Http\Controllers\ChannelController@channelTimetable');
-Route::get('/channels/{channel}/programmes/{programme-uuid}', 'App\Http\Controllers\ChannelController@programmeTimetable');
+Route::get('/channels', 'ChannelController@list');
+Route::get('/channels/{channel}/{date}/timezone/{timezone}', 'ChannelController@channelTimetable');
+Route::get('/channels/{channel}/programmes/{programme-uuid}', 'ChannelController@programmeTimetable');

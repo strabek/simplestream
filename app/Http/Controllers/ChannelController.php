@@ -3,17 +3,33 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChannelRepository;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class ChannelController extends Controller
 {
+    /**
+     * @return JsonResponse
+     */
     protected function list(): JsonResponse
     {
+        try {
+            $channels = ChannelRepository::getAll();
+        } catch (Exception $e) {
+            return new JsonResponse(
+                [
+                    'status' => 'fail'
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
         return new JsonResponse(
             [
                 'status' => 'success',
-                'data' => $data
+                'data' => $channels
             ],
             Response::HTTP_OK
         );
